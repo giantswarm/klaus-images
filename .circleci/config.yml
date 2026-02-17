@@ -4,26 +4,94 @@ orbs:
   architect: giantswarm/architect@6.12.0
 
 workflows:
-  test:
+  build:
     jobs:
-      - architect/go-build:
-          context: architect
-          name: go-build
-          binary: template
-          filters:
-            # Trigger job also on git tag.
-            tags:
-              only: /^v.*/
-      # - architect/push-to-registries:
-      #     context: architect
-      #     name: push-to-registries
-      #     requires:
-      #       - go-build
-      #     filters:
-      #       # Trigger job also on git tag.
-      #       tags:
-      #         only: /^v.*/
-      #       branches:
-      #         ignore:
-      #           - main
-      #           - master
+    # klaus-git (Alpine)
+    - architect/push-to-registries:
+        context: architect
+        name: push-klaus-git
+        image: giantswarm/klaus-git
+        dockerfile: ./klaus-git/Dockerfile
+        build-context: ./klaus-git
+        resource_class: medium
+        filters:
+          tags:
+            only: /^v.*/
+          branches:
+            ignore:
+            - main
+
+    # klaus-git (Debian)
+    - architect/push-to-registries:
+        context: architect
+        name: push-klaus-git-debian
+        image: giantswarm/klaus-git-debian
+        dockerfile: ./klaus-git/Dockerfile.debian
+        build-context: ./klaus-git
+        resource_class: medium
+        filters:
+          tags:
+            only: /^v.*/
+          branches:
+            ignore:
+            - main
+
+    # klaus-go (Alpine)
+    - architect/push-to-registries:
+        context: architect
+        name: push-klaus-go
+        image: giantswarm/klaus-go
+        dockerfile: ./klaus-go/Dockerfile
+        build-context: ./klaus-go
+        resource_class: medium
+        filters:
+          tags:
+            only: /^v.*/
+          branches:
+            ignore:
+            - main
+
+    # klaus-go (Debian)
+    - architect/push-to-registries:
+        context: architect
+        name: push-klaus-go-debian
+        image: giantswarm/klaus-go-debian
+        dockerfile: ./klaus-go/Dockerfile.debian
+        build-context: ./klaus-go
+        resource_class: medium
+        filters:
+          tags:
+            only: /^v.*/
+          branches:
+            ignore:
+            - main
+
+    # klaus-python (Alpine)
+    - architect/push-to-registries:
+        context: architect
+        name: push-klaus-python
+        image: giantswarm/klaus-python
+        dockerfile: ./klaus-python/Dockerfile
+        build-context: ./klaus-python
+        resource_class: medium
+        filters:
+          tags:
+            only: /^v.*/
+          branches:
+            ignore:
+            - main
+
+    # klaus-python (Debian)
+    - architect/push-to-registries:
+        context: architect
+        name: push-klaus-python-debian
+        image: giantswarm/klaus-python-debian
+        dockerfile: ./klaus-python/Dockerfile.debian
+        build-context: ./klaus-python
+        resource_class: medium
+        filters:
+          tags:
+            only: /^v.*/
+          branches:
+            ignore:
+            - main

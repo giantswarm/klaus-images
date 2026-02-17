@@ -1,29 +1,71 @@
-# General Go template repository
+# klaus-images
 
-This is a general template repository containing some basic files every GitHub repo owned by Giant Swarm should have.
+Pre-built toolchain container images that extend the minimal [Klaus](https://github.com/giantswarm/klaus) base with language runtimes and tools.
 
-Note also these more specific repositories:
+## Images
 
-- [template-app](https://github.com/giantswarm/template-app)
-- [gitops-template](https://github.com/giantswarm/gitops-template)
-- [python-app-template](https://github.com/giantswarm/python-app-template)
+Each image adds exactly what it needs on top of Klaus. Variant is encoded in the image name, not the tag.
 
-## Creating a new repository
+| Image | Contents | Base |
+|-------|----------|------|
+| `giantswarm/klaus-git` | + git | `giantswarm/klaus` |
+| `giantswarm/klaus-git-debian` | + git (Debian) | `giantswarm/klaus-debian` |
+| `giantswarm/klaus-go` | + Go runtime | `giantswarm/klaus-git` |
+| `giantswarm/klaus-go-debian` | + Go runtime (Debian) | `giantswarm/klaus-git-debian` |
+| `giantswarm/klaus-python` | + Python | `giantswarm/klaus-git` |
+| `giantswarm/klaus-python-debian` | + Python (Debian) | `giantswarm/klaus-git-debian` |
 
-Please do not use the `Use this template` function in the GitHub web UI.
+### Image hierarchy
 
-Check out the according [handbook article](https://handbook.giantswarm.io/docs/dev-and-releng/repository/go/) for better instructions.
+```
+giantswarm/klaus
+├── giantswarm/klaus-git
+│   ├── giantswarm/klaus-go
+│   └── giantswarm/klaus-python
 
-### Some suggestions for your README
+giantswarm/klaus-debian
+├── giantswarm/klaus-git-debian
+│   ├── giantswarm/klaus-go-debian
+│   └── giantswarm/klaus-python-debian
+```
 
-After you have created your new repository, you may want to add some of these badges to the top of your README.
+## Tagging
 
-- **CircleCI:** After enabling builds for this repo via [this link](https://circleci.com/setup-project/gh/giantswarm/REPOSITORY_NAME), you can find badge code on [this page](https://app.circleci.com/settings/project/github/giantswarm/REPOSITORY_NAME/status-badges).
+Tags follow the [Giant Swarm semver tagging schema](https://github.com/giantswarm/rfc/blob/main/semver-based-automatic-upgrades/README.md):
 
-- **Go reference:** use [this helper](https://pkg.go.dev/badge/) to create the markdown code.
+- **Stable**: `1.0.0` -- from `main` via `main#release#[patch,minor,major]`
+- **RC**: `1.0.1-rc.1` -- from `main` via `main#release#[patch-rc,minor-rc,major-rc]`
+- **Dev**: `1.0.1-dev.feature.20260217.120000` -- automatic from non-main branches
 
-- **Go report card:** enter the module name on the [front page](https://goreportcard.com/) and hit "Generate report". Then use this markdown code for your badge: `[![Go report card](https://goreportcard.com/badge/github.com/giantswarm/REPOSITORY_NAME)](https://goreportcard.com/report/github.com/giantswarm/REPOSITORY_NAME)`
+## Build args
 
-- **OpenSSF Scorecard Report:** for public repos only: `[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/giantswarm/{APP-NAME}/badge)](https://securityscorecards.dev/viewer/?uri=github.com/giantswarm/{APP-NAME})`
+| Arg | Default | Description |
+|-----|---------|-------------|
+| `KLAUS_VERSION` | pinned | Klaus base image version. Updated by Renovate. |
+| `GO_VERSION` | `1.25` | Go version (klaus-go only). Managed by platform team. |
 
-- **Sourcegraph "used by N projects" badge**: for public Go repos only: `[![Sourcegraph](https://sourcegraph.com/github.com/giantswarm/REPOSITORY_NAME/-/badge.svg)](https://sourcegraph.com/github.com/giantswarm/REPOSITORY_NAME)`
+## Usage
+
+Reference images in klausctl config, Helm values, or operator CRDs:
+
+```yaml
+image: gsoci.azurecr.io/giantswarm/klaus-go:1.0.0
+```
+
+## Repository structure
+
+```
+klaus-git/
+├── Dockerfile           # Alpine variant
+└── Dockerfile.debian    # Debian variant
+klaus-go/
+├── Dockerfile
+└── Dockerfile.debian
+klaus-python/
+├── Dockerfile
+└── Dockerfile.debian
+```
+
+## CI
+
+CircleCI builds one `push-to-registries` job per image using the [architect-orb](https://github.com/giantswarm/architect-orb). All images are pushed to `gsoci.azurecr.io/giantswarm/` on every push (dev tags) and release (semver tags).
