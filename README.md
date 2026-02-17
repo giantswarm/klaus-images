@@ -10,23 +10,25 @@ Each image adds exactly what it needs on top of Klaus. Variant is encoded in the
 |-------|----------|------|
 | `giantswarm/klaus-git` | + git | `giantswarm/klaus` |
 | `giantswarm/klaus-git-debian` | + git (Debian) | `giantswarm/klaus-debian` |
-| `giantswarm/klaus-go` | + Go runtime | `giantswarm/klaus-git` |
-| `giantswarm/klaus-go-debian` | + Go runtime (Debian) | `giantswarm/klaus-git-debian` |
-| `giantswarm/klaus-python` | + Python | `giantswarm/klaus-git` |
-| `giantswarm/klaus-python-debian` | + Python (Debian) | `giantswarm/klaus-git-debian` |
+| `giantswarm/klaus-go` | + git, Go runtime | `giantswarm/klaus` |
+| `giantswarm/klaus-go-debian` | + git, Go runtime (Debian) | `giantswarm/klaus-debian` |
+| `giantswarm/klaus-python` | + git, Python | `giantswarm/klaus` |
+| `giantswarm/klaus-python-debian` | + git, Python (Debian) | `giantswarm/klaus-debian` |
 
 ### Image hierarchy
 
+All toolchain images build directly from the Klaus base to avoid cross-image registry dependencies:
+
 ```
 giantswarm/klaus
-├── giantswarm/klaus-git
-│   ├── giantswarm/klaus-go
-│   └── giantswarm/klaus-python
+├── giantswarm/klaus-git         (+ git)
+├── giantswarm/klaus-go          (+ git + Go)
+└── giantswarm/klaus-python      (+ git + Python)
 
 giantswarm/klaus-debian
 ├── giantswarm/klaus-git-debian
-│   ├── giantswarm/klaus-go-debian
-│   └── giantswarm/klaus-python-debian
+├── giantswarm/klaus-go-debian
+└── giantswarm/klaus-python-debian
 ```
 
 ## Tagging
