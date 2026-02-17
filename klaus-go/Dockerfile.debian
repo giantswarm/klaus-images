@@ -1,5 +1,5 @@
 ARG KLAUS_VERSION=0.0.20
-ARG GO_VERSION=1.25
+ARG GO_VERSION=1.26
 FROM golang:${GO_VERSION} AS go-source
 FROM gsoci.azurecr.io/giantswarm/klaus-debian:${KLAUS_VERSION}
 USER root
