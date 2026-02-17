@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
 
+- Initial toolchain images: klaus-git, klaus-go, klaus-python.
+- Alpine and Debian variants for each image.
+- CircleCI config with push-to-registries jobs for all images.
 
-[Unreleased]: https://github.com/giantswarm/REPOSITORY_NAME/tree/main
+[Unreleased]: https://github.com/giantswarm/klaus-images/tree/main
