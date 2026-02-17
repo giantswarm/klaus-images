@@ -26,7 +26,6 @@ help: ## Display this help.
 
 ##@ Build
 
-KLAUS_VERSION ?= 0.0.20
 GO_VERSION ?= 1.25
 REGISTRY ?= gsoci.azurecr.io/giantswarm
 
@@ -35,24 +34,24 @@ build-all: build-klaus-git build-klaus-git-debian build-klaus-go build-klaus-go-
 
 .PHONY: build-klaus-git
 build-klaus-git: ## Build klaus-git (Alpine).
-	docker build --build-arg KLAUS_VERSION=$(KLAUS_VERSION) -t $(REGISTRY)/klaus-git:dev -f klaus-git/Dockerfile klaus-git
+	docker build -t $(REGISTRY)/klaus-git:dev -f klaus-git/Dockerfile klaus-git
 
 .PHONY: build-klaus-git-debian
 build-klaus-git-debian: ## Build klaus-git-debian.
-	docker build --build-arg KLAUS_VERSION=$(KLAUS_VERSION) -t $(REGISTRY)/klaus-git-debian:dev -f klaus-git/Dockerfile.debian klaus-git
+	docker build -t $(REGISTRY)/klaus-git-debian:dev -f klaus-git/Dockerfile.debian klaus-git
 
 .PHONY: build-klaus-go
 build-klaus-go: ## Build klaus-go (Alpine).
-	docker build --build-arg KLAUS_VERSION=$(KLAUS_VERSION) --build-arg GO_VERSION=$(GO_VERSION) -t $(REGISTRY)/klaus-go:dev -f klaus-go/Dockerfile klaus-go
+	docker build --build-arg GO_VERSION=$(GO_VERSION) -t $(REGISTRY)/klaus-go:dev -f klaus-go/Dockerfile klaus-go
 
 .PHONY: build-klaus-go-debian
 build-klaus-go-debian: ## Build klaus-go-debian.
-	docker build --build-arg KLAUS_VERSION=$(KLAUS_VERSION) --build-arg GO_VERSION=$(GO_VERSION) -t $(REGISTRY)/klaus-go-debian:dev -f klaus-go/Dockerfile.debian klaus-go
+	docker build --build-arg GO_VERSION=$(GO_VERSION) -t $(REGISTRY)/klaus-go-debian:dev -f klaus-go/Dockerfile.debian klaus-go
 
 .PHONY: build-klaus-python
 build-klaus-python: ## Build klaus-python (Alpine).
-	docker build --build-arg KLAUS_VERSION=$(KLAUS_VERSION) -t $(REGISTRY)/klaus-python:dev -f klaus-python/Dockerfile klaus-python
+	docker build -t $(REGISTRY)/klaus-python:dev -f klaus-python/Dockerfile klaus-python
 
 .PHONY: build-klaus-python-debian
 build-klaus-python-debian: ## Build klaus-python-debian.
-	docker build --build-arg KLAUS_VERSION=$(KLAUS_VERSION) -t $(REGISTRY)/klaus-python-debian:dev -f klaus-python/Dockerfile.debian klaus-python
+	docker build -t $(REGISTRY)/klaus-python-debian:dev -f klaus-python/Dockerfile.debian klaus-python
