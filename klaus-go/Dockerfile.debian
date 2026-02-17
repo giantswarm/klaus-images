@@ -1,8 +1,10 @@
 ARG KLAUS_VERSION=0.0.20
 ARG GO_VERSION=1.26
 FROM golang:${GO_VERSION} AS go-source
-FROM gsoci.azurecr.io/giantswarm/klaus-git-debian:${KLAUS_VERSION}
+FROM gsoci.azurecr.io/giantswarm/klaus-debian:${KLAUS_VERSION}
 USER root
+RUN apt-get update && apt-get install -y --no-install-recommends git \
+    && rm -rf /var/lib/apt/lists/*
 COPY --from=go-source /usr/local/go /usr/local/go
 RUN mkdir -p /go && chown klaus:klaus /go
 USER klaus
