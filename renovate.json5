@@ -6,9 +6,22 @@
   "packageRules": [
     {
       "description": "Group all Klaus base image version updates into a single PR",
-      "matchDatasources": ["docker"],
+      "matchDatasources": ["docker", "github-releases"],
       "matchPackagePatterns": ["giantswarm\\/klaus"],
       "groupName": "klaus-images",
+    },
+  ],
+  "customManagers": [
+    {
+      // The GS preset's repo: manager only matches /Dockerfile$/ which misses
+      // our Dockerfile.debian files. This extends coverage to all Dockerfiles.
+      "customType": "regex",
+      "managerFilePatterns": ["/Dockerfile\\.debian$/"],
+      "matchStrings": [
+        "repo: (?<depName>.*)\\n(.+)=v?(?<currentValue>\\S+)\\n",
+      ],
+      "datasourceTemplate": "github-releases",
+      "extractVersionTemplate": "^v?(?<version>.*)$",
     },
   ],
 }

@@ -1,3 +1,4 @@
+# repo: giantswarm/klaus
 ARG KLAUS_VERSION=0.0.20
 ARG GO_VERSION=1.25
 FROM golang:${GO_VERSION}-alpine AS go-source
