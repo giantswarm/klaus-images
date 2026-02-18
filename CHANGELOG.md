@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial toolchain images: klaus-git, klaus-go, klaus-python.
 - Alpine and Debian variants for each image.
 - CircleCI config with push-to-registries jobs for all images.
+- Auto-release workflow that creates a patch version tag and GitHub release
+  when a PR is merged to main.
 
 ### Fixed
 
