@@ -26,57 +26,32 @@ help: ## Display this help.
 
 ##@ Build
 
-VERSION ?= dev
 GO_VERSION ?= 1.25
 REGISTRY ?= gsoci.azurecr.io/giantswarm
-
-KLAUS_ANNOTATIONS = \
-	--annotation "manifest:io.giantswarm.klaus.type=toolchain" \
-	--annotation "manifest:io.giantswarm.klaus.version=$(VERSION)"
 
 .PHONY: build-all
 build-all: build-klaus-git build-klaus-git-debian build-klaus-go build-klaus-go-debian build-klaus-python build-klaus-python-debian ## Build all images locally.
 
 .PHONY: build-klaus-git
 build-klaus-git: ## Build klaus-git (Alpine).
-	docker buildx build --load \
-		$(KLAUS_ANNOTATIONS) \
-		--annotation "manifest:io.giantswarm.klaus.name=git" \
-		-t $(REGISTRY)/klaus-git:$(VERSION) -f klaus-git/Dockerfile klaus-git
+	docker build -t $(REGISTRY)/klaus-git:dev -f klaus-git/Dockerfile klaus-git
 
 .PHONY: build-klaus-git-debian
 build-klaus-git-debian: ## Build klaus-git-debian.
-	docker buildx build --load \
-		$(KLAUS_ANNOTATIONS) \
-		--annotation "manifest:io.giantswarm.klaus.name=git" \
-		-t $(REGISTRY)/klaus-git-debian:$(VERSION) -f klaus-git/Dockerfile.debian klaus-git
+	docker build -t $(REGISTRY)/klaus-git-debian:dev -f klaus-git/Dockerfile.debian klaus-git
 
 .PHONY: build-klaus-go
 build-klaus-go: ## Build klaus-go (Alpine).
-	docker buildx build --load \
-		--build-arg GO_VERSION=$(GO_VERSION) \
-		$(KLAUS_ANNOTATIONS) \
-		--annotation "manifest:io.giantswarm.klaus.name=go" \
-		-t $(REGISTRY)/klaus-go:$(VERSION) -f klaus-go/Dockerfile klaus-go
+	docker build --build-arg GO_VERSION=$(GO_VERSION) -t $(REGISTRY)/klaus-go:dev -f klaus-go/Dockerfile klaus-go
 
 .PHONY: build-klaus-go-debian
 build-klaus-go-debian: ## Build klaus-go-debian.
-	docker buildx build --load \
-		--build-arg GO_VERSION=$(GO_VERSION) \
-		$(KLAUS_ANNOTATIONS) \
-		--annotation "manifest:io.giantswarm.klaus.name=go" \
-		-t $(REGISTRY)/klaus-go-debian:$(VERSION) -f klaus-go/Dockerfile.debian klaus-go
+	docker build --build-arg GO_VERSION=$(GO_VERSION) -t $(REGISTRY)/klaus-go-debian:dev -f klaus-go/Dockerfile.debian klaus-go
 
 .PHONY: build-klaus-python
 build-klaus-python: ## Build klaus-python (Alpine).
-	docker buildx build --load \
-		$(KLAUS_ANNOTATIONS) \
-		--annotation "manifest:io.giantswarm.klaus.name=python" \
-		-t $(REGISTRY)/klaus-python:$(VERSION) -f klaus-python/Dockerfile klaus-python
+	docker build -t $(REGISTRY)/klaus-python:dev -f klaus-python/Dockerfile klaus-python
 
 .PHONY: build-klaus-python-debian
 build-klaus-python-debian: ## Build klaus-python-debian.
-	docker buildx build --load \
-		$(KLAUS_ANNOTATIONS) \
-		--annotation "manifest:io.giantswarm.klaus.name=python" \
-		-t $(REGISTRY)/klaus-python-debian:$(VERSION) -f klaus-python/Dockerfile.debian klaus-python
+	docker build -t $(REGISTRY)/klaus-python-debian:dev -f klaus-python/Dockerfile.debian klaus-python

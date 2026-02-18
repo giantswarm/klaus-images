@@ -2,6 +2,4 @@ FROM gsoci.azurecr.io/giantswarm/klaus-debian:0.0.20
 USER root
 RUN apt-get update && apt-get install -y --no-install-recommends git python3 python3-pip \
     && rm -rf /var/lib/apt/lists/*
-LABEL io.giantswarm.klaus.type=toolchain
-LABEL io.giantswarm.klaus.name=python
 USER klaus
