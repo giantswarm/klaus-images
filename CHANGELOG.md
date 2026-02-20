@@ -16,6 +16,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CircleCI config with push-to-registries jobs for all images.
 - Auto-release workflow that creates a patch version tag and GitHub release
   when a PR is merged to main.
+- OCI manifest annotations (`io.giantswarm.klaus.type`, `.name`, `.version`)
+  on all toolchain images via `architect-orb@6.14.0` multiarch workflow.
+- Docker labels (`io.giantswarm.klaus.type`, `.name`) in all Dockerfiles
+  for local image filtering.
+
+### Changed
+
+- Switch CI builds from `push-to-registries` to `push-to-registries-multiarch`
+  for multi-architecture support (linux/amd64, linux/arm64) and OCI annotations.
+- Build amd64-only on branches for faster PR feedback; full multi-arch only on
+  release tags.
+- Local builds in Makefile now use `docker buildx build --load` with annotation
+  flags matching CI output.
 
 ### Fixed
 

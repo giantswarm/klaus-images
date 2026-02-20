@@ -6,5 +6,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends git \
     && rm -rf /var/lib/apt/lists/*
 COPY --from=go-source /usr/local/go /usr/local/go
 RUN mkdir -p /go && chown klaus:klaus /go
+LABEL io.giantswarm.klaus.type=toolchain \
+      io.giantswarm.klaus.name=go
 USER klaus
 ENV GOPATH=/go PATH="/usr/local/go/bin:/go/bin:${PATH}"
