@@ -19,10 +19,10 @@ Build a specific image:
 make build-klaus-go
 ```
 
-Override the Klaus base version or Go version:
+Override the Go version:
 
 ```bash
-make build-klaus-go KLAUS_VERSION=0.0.20 GO_VERSION=1.25
+make build-klaus-go GO_VERSION=1.25
 ```
 
 ## Version management
