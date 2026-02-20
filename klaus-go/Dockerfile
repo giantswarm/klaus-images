@@ -6,4 +6,6 @@ RUN apk add --no-cache git
 COPY --from=go-source /usr/local/go /usr/local/go
 RUN mkdir -p /go && chown klaus:klaus /go
 USER klaus
+LABEL io.giantswarm.klaus.type=toolchain
+LABEL io.giantswarm.klaus.name=go
 ENV GOPATH=/go PATH="/usr/local/go/bin:/go/bin:${PATH}"
