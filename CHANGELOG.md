@@ -25,6 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Switch CI builds from `push-to-registries` to `push-to-registries-multiarch`
   for multi-architecture support (linux/amd64, linux/arm64) and OCI annotations.
+- Build amd64-only on branches for faster PR feedback; full multi-arch only on
+  release tags.
 - Local builds in Makefile now use `docker buildx build --load` with annotation
   flags matching CI output.
 

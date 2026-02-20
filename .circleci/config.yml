@@ -1,7 +1,11 @@
 version: 2.1
 
 orbs:
+<<<<<<< HEAD
   architect: giantswarm/architect@6.14.0
+=======
+  architect: giantswarm/architect@6.13.0
+>>>>>>> origin/main
 
 workflows:
   build:
