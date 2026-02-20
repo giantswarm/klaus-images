@@ -32,6 +32,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- Bump base images to klaus 0.0.30 which includes proper multi-arch (arm64)
+  support, fixing QEMU emulation failures in release builds.
 - All images now build directly FROM `giantswarm/klaus` base instead of chaining
   through `giantswarm/klaus-git`. This avoids cross-image registry dependencies
   that would prevent parallel CI builds and require a multi-stage bootstrap.
