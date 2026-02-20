@@ -6,10 +6,122 @@ orbs:
 workflows:
   build:
     jobs:
+    # ── Branch builds: amd64 only for faster PR feedback ──
+
     # klaus-git (Alpine)
     - architect/push-to-registries-multiarch:
         context: architect
         name: push-klaus-git
+        image: giantswarm/klaus-git
+        dockerfile: ./klaus-git/Dockerfile
+        build-context: ./klaus-git
+        platforms: "linux/amd64"
+        resource_class: medium
+        annotations: |
+          manifest:io.giantswarm.klaus.type=toolchain
+          manifest:io.giantswarm.klaus.name=git
+          manifest:io.giantswarm.klaus.version=${DOCKER_IMAGE_TAG}
+        filters:
+          branches:
+            ignore:
+            - main
+
+    # klaus-git (Debian)
+    - architect/push-to-registries-multiarch:
+        context: architect
+        name: push-klaus-git-debian
+        image: giantswarm/klaus-git-debian
+        dockerfile: ./klaus-git/Dockerfile.debian
+        build-context: ./klaus-git
+        platforms: "linux/amd64"
+        resource_class: medium
+        annotations: |
+          manifest:io.giantswarm.klaus.type=toolchain
+          manifest:io.giantswarm.klaus.name=git
+          manifest:io.giantswarm.klaus.version=${DOCKER_IMAGE_TAG}
+        filters:
+          branches:
+            ignore:
+            - main
+
+    # klaus-go (Alpine)
+    - architect/push-to-registries-multiarch:
+        context: architect
+        name: push-klaus-go
+        image: giantswarm/klaus-go
+        dockerfile: ./klaus-go/Dockerfile
+        build-context: ./klaus-go
+        platforms: "linux/amd64"
+        resource_class: medium
+        annotations: |
+          manifest:io.giantswarm.klaus.type=toolchain
+          manifest:io.giantswarm.klaus.name=go
+          manifest:io.giantswarm.klaus.version=${DOCKER_IMAGE_TAG}
+        filters:
+          branches:
+            ignore:
+            - main
+
+    # klaus-go (Debian)
+    - architect/push-to-registries-multiarch:
+        context: architect
+        name: push-klaus-go-debian
+        image: giantswarm/klaus-go-debian
+        dockerfile: ./klaus-go/Dockerfile.debian
+        build-context: ./klaus-go
+        platforms: "linux/amd64"
+        resource_class: medium
+        annotations: |
+          manifest:io.giantswarm.klaus.type=toolchain
+          manifest:io.giantswarm.klaus.name=go
+          manifest:io.giantswarm.klaus.version=${DOCKER_IMAGE_TAG}
+        filters:
+          branches:
+            ignore:
+            - main
+
+    # klaus-python (Alpine)
+    - architect/push-to-registries-multiarch:
+        context: architect
+        name: push-klaus-python
+        image: giantswarm/klaus-python
+        dockerfile: ./klaus-python/Dockerfile
+        build-context: ./klaus-python
+        platforms: "linux/amd64"
+        resource_class: medium
+        annotations: |
+          manifest:io.giantswarm.klaus.type=toolchain
+          manifest:io.giantswarm.klaus.name=python
+          manifest:io.giantswarm.klaus.version=${DOCKER_IMAGE_TAG}
+        filters:
+          branches:
+            ignore:
+            - main
+
+    # klaus-python (Debian)
+    - architect/push-to-registries-multiarch:
+        context: architect
+        name: push-klaus-python-debian
+        image: giantswarm/klaus-python-debian
+        dockerfile: ./klaus-python/Dockerfile.debian
+        build-context: ./klaus-python
+        platforms: "linux/amd64"
+        resource_class: medium
+        annotations: |
+          manifest:io.giantswarm.klaus.type=toolchain
+          manifest:io.giantswarm.klaus.name=python
+          manifest:io.giantswarm.klaus.version=${DOCKER_IMAGE_TAG}
+        filters:
+          branches:
+            ignore:
+            - main
+
+    # ── Tag builds: full multi-arch (amd64 + arm64) ──
+
+    # klaus-git (Alpine)
+    - architect/push-to-registries-multiarch:
+        context: architect
+        name: push-klaus-git-release
         image: giantswarm/klaus-git
         dockerfile: ./klaus-git/Dockerfile
         build-context: ./klaus-git
@@ -22,13 +134,12 @@ workflows:
           tags:
             only: /^v.*/
           branches:
-            ignore:
-            - main
+            ignore: /.*/
 
     # klaus-git (Debian)
     - architect/push-to-registries-multiarch:
         context: architect
-        name: push-klaus-git-debian
+        name: push-klaus-git-debian-release
         image: giantswarm/klaus-git-debian
         dockerfile: ./klaus-git/Dockerfile.debian
         build-context: ./klaus-git
@@ -41,13 +152,12 @@ workflows:
           tags:
             only: /^v.*/
           branches:
-            ignore:
-            - main
+            ignore: /.*/
 
     # klaus-go (Alpine)
     - architect/push-to-registries-multiarch:
         context: architect
-        name: push-klaus-go
+        name: push-klaus-go-release
         image: giantswarm/klaus-go
         dockerfile: ./klaus-go/Dockerfile
         build-context: ./klaus-go
@@ -60,13 +170,12 @@ workflows:
           tags:
             only: /^v.*/
           branches:
-            ignore:
-            - main
+            ignore: /.*/
 
     # klaus-go (Debian)
     - architect/push-to-registries-multiarch:
         context: architect
-        name: push-klaus-go-debian
+        name: push-klaus-go-debian-release
         image: giantswarm/klaus-go-debian
         dockerfile: ./klaus-go/Dockerfile.debian
         build-context: ./klaus-go
@@ -79,13 +188,12 @@ workflows:
           tags:
             only: /^v.*/
           branches:
-            ignore:
-            - main
+            ignore: /.*/
 
     # klaus-python (Alpine)
     - architect/push-to-registries-multiarch:
         context: architect
-        name: push-klaus-python
+        name: push-klaus-python-release
         image: giantswarm/klaus-python
         dockerfile: ./klaus-python/Dockerfile
         build-context: ./klaus-python
@@ -98,13 +206,12 @@ workflows:
           tags:
             only: /^v.*/
           branches:
-            ignore:
-            - main
+            ignore: /.*/
 
     # klaus-python (Debian)
     - architect/push-to-registries-multiarch:
         context: architect
-        name: push-klaus-python-debian
+        name: push-klaus-python-debian-release
         image: giantswarm/klaus-python-debian
         dockerfile: ./klaus-python/Dockerfile.debian
         build-context: ./klaus-python
@@ -117,5 +224,4 @@ workflows:
           tags:
             only: /^v.*/
           branches:
-            ignore:
-            - main
+            ignore: /.*/
