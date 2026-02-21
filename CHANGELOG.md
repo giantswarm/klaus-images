@@ -13,6 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Move toolchain images to `giantswarm/klaus-toolchains/<name>` sub-namespace for consistent naming with plugins (`klaus-plugins/`) and personalities (`klaus-personalities/`). This also eliminates a ~30s cold-start latency in `klausctl toolchain list` caused by enumerating the entire `giantswarm/` catalog.
 
+### Removed
+
+- `io.giantswarm.klaus.*` OCI manifest annotations from CircleCI and Makefile builds. With dedicated sub-namespaces for each artifact type, annotation-based identification is no longer needed.
+- `io.giantswarm.klaus.*` Docker labels from all Dockerfiles (same reason).
+
 ### Added
 
 - Initial toolchain images: klaus-git, klaus-go, klaus-python.

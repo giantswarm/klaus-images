@@ -17,10 +17,6 @@ workflows:
         build-context: ./klaus-git
         platforms: "linux/amd64"
         resource_class: medium
-        annotations: |
-          manifest:io.giantswarm.klaus.type=toolchain
-          manifest:io.giantswarm.klaus.name=git
-          manifest:io.giantswarm.klaus.version=${DOCKER_IMAGE_TAG}
         filters:
           branches:
             ignore:
@@ -35,10 +31,6 @@ workflows:
         build-context: ./klaus-git
         platforms: "linux/amd64"
         resource_class: medium
-        annotations: |
-          manifest:io.giantswarm.klaus.type=toolchain
-          manifest:io.giantswarm.klaus.name=git
-          manifest:io.giantswarm.klaus.version=${DOCKER_IMAGE_TAG}
         filters:
           branches:
             ignore:
@@ -53,10 +45,6 @@ workflows:
         build-context: ./klaus-go
         platforms: "linux/amd64"
         resource_class: medium
-        annotations: |
-          manifest:io.giantswarm.klaus.type=toolchain
-          manifest:io.giantswarm.klaus.name=go
-          manifest:io.giantswarm.klaus.version=${DOCKER_IMAGE_TAG}
         filters:
           branches:
             ignore:
@@ -71,10 +59,6 @@ workflows:
         build-context: ./klaus-go
         platforms: "linux/amd64"
         resource_class: medium
-        annotations: |
-          manifest:io.giantswarm.klaus.type=toolchain
-          manifest:io.giantswarm.klaus.name=go
-          manifest:io.giantswarm.klaus.version=${DOCKER_IMAGE_TAG}
         filters:
           branches:
             ignore:
@@ -89,10 +73,6 @@ workflows:
         build-context: ./klaus-python
         platforms: "linux/amd64"
         resource_class: medium
-        annotations: |
-          manifest:io.giantswarm.klaus.type=toolchain
-          manifest:io.giantswarm.klaus.name=python
-          manifest:io.giantswarm.klaus.version=${DOCKER_IMAGE_TAG}
         filters:
           branches:
             ignore:
@@ -107,10 +87,6 @@ workflows:
         build-context: ./klaus-python
         platforms: "linux/amd64"
         resource_class: medium
-        annotations: |
-          manifest:io.giantswarm.klaus.type=toolchain
-          manifest:io.giantswarm.klaus.name=python
-          manifest:io.giantswarm.klaus.version=${DOCKER_IMAGE_TAG}
         filters:
           branches:
             ignore:
@@ -126,10 +102,6 @@ workflows:
         dockerfile: ./klaus-git/Dockerfile
         build-context: ./klaus-git
         resource_class: medium
-        annotations: |
-          manifest:io.giantswarm.klaus.type=toolchain
-          manifest:io.giantswarm.klaus.name=git
-          manifest:io.giantswarm.klaus.version=${DOCKER_IMAGE_TAG}
         filters:
           tags:
             only: /^v.*/
@@ -144,10 +116,6 @@ workflows:
         dockerfile: ./klaus-git/Dockerfile.debian
         build-context: ./klaus-git
         resource_class: medium
-        annotations: |
-          manifest:io.giantswarm.klaus.type=toolchain
-          manifest:io.giantswarm.klaus.name=git
-          manifest:io.giantswarm.klaus.version=${DOCKER_IMAGE_TAG}
         filters:
           tags:
             only: /^v.*/
@@ -162,10 +130,6 @@ workflows:
         dockerfile: ./klaus-go/Dockerfile
         build-context: ./klaus-go
         resource_class: medium
-        annotations: |
-          manifest:io.giantswarm.klaus.type=toolchain
-          manifest:io.giantswarm.klaus.name=go
-          manifest:io.giantswarm.klaus.version=${DOCKER_IMAGE_TAG}
         filters:
           tags:
             only: /^v.*/
@@ -180,10 +144,6 @@ workflows:
         dockerfile: ./klaus-go/Dockerfile.debian
         build-context: ./klaus-go
         resource_class: medium
-        annotations: |
-          manifest:io.giantswarm.klaus.type=toolchain
-          manifest:io.giantswarm.klaus.name=go
-          manifest:io.giantswarm.klaus.version=${DOCKER_IMAGE_TAG}
         filters:
           tags:
             only: /^v.*/
@@ -198,10 +158,6 @@ workflows:
         dockerfile: ./klaus-python/Dockerfile
         build-context: ./klaus-python
         resource_class: medium
-        annotations: |
-          manifest:io.giantswarm.klaus.type=toolchain
-          manifest:io.giantswarm.klaus.name=python
-          manifest:io.giantswarm.klaus.version=${DOCKER_IMAGE_TAG}
         filters:
           tags:
             only: /^v.*/
@@ -216,10 +172,6 @@ workflows:
         dockerfile: ./klaus-python/Dockerfile.debian
         build-context: ./klaus-python
         resource_class: medium
-        annotations: |
-          manifest:io.giantswarm.klaus.type=toolchain
-          manifest:io.giantswarm.klaus.name=python
-          manifest:io.giantswarm.klaus.version=${DOCKER_IMAGE_TAG}
         filters:
           tags:
             only: /^v.*/

@@ -33,21 +33,10 @@ Klaus image updates into a single PR via the `klaus-images` group in
 
 The `Makefile` allows overriding versions for local builds via `make build-klaus-go KLAUS_VERSION=x.y.z`.
 
-## OCI annotations and Docker labels
-
-All toolchain images carry structured metadata for discovery by `klausctl`:
-
-- **Manifest annotations** (`io.giantswarm.klaus.type`, `.name`, `.version`) --
-  set via `docker buildx --annotation` in both CI and local builds. These can
-  be read remotely with a single manifest GET (no config blob fetch needed).
-- **Docker labels** (`io.giantswarm.klaus.type`, `.name`) -- set via `LABEL` in
-  Dockerfiles for local filtering with `docker images --filter label=...`.
-
 ## Adding a new toolchain image
 
 1. Create a new directory under the repo root (e.g. `klaus-rust/`).
 2. Add `Dockerfile` (Alpine) and `Dockerfile.debian` variants.
-3. Add `push-to-registries-multiarch` jobs to `.circleci/config.yml` with
-   `io.giantswarm.klaus.*` annotations.
+3. Add `push-to-registries-multiarch` jobs to `.circleci/config.yml`.
 4. Add build targets to the `Makefile`.
 5. Update `README.md` with the new image.
