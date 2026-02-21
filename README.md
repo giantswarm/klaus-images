@@ -8,12 +8,12 @@ Each image adds exactly what it needs on top of Klaus. Variant is encoded in the
 
 | Image | Contents | Base |
 |-------|----------|------|
-| `giantswarm/klaus-git` | + git | `giantswarm/klaus` |
-| `giantswarm/klaus-git-debian` | + git (Debian) | `giantswarm/klaus-debian` |
-| `giantswarm/klaus-go` | + git, Go runtime | `giantswarm/klaus` |
-| `giantswarm/klaus-go-debian` | + git, Go runtime (Debian) | `giantswarm/klaus-debian` |
-| `giantswarm/klaus-python` | + git, Python | `giantswarm/klaus` |
-| `giantswarm/klaus-python-debian` | + git, Python (Debian) | `giantswarm/klaus-debian` |
+| `giantswarm/klaus-toolchains/git` | + git | `giantswarm/klaus` |
+| `giantswarm/klaus-toolchains/git-debian` | + git (Debian) | `giantswarm/klaus-debian` |
+| `giantswarm/klaus-toolchains/go` | + git, Go runtime | `giantswarm/klaus` |
+| `giantswarm/klaus-toolchains/go-debian` | + git, Go runtime (Debian) | `giantswarm/klaus-debian` |
+| `giantswarm/klaus-toolchains/python` | + git, Python | `giantswarm/klaus` |
+| `giantswarm/klaus-toolchains/python-debian` | + git, Python (Debian) | `giantswarm/klaus-debian` |
 
 ### Image hierarchy
 
@@ -21,14 +21,14 @@ All toolchain images build directly from the Klaus base to avoid cross-image reg
 
 ```
 giantswarm/klaus
-├── giantswarm/klaus-git         (+ git)
-├── giantswarm/klaus-go          (+ git + Go)
-└── giantswarm/klaus-python      (+ git + Python)
+├── giantswarm/klaus-toolchains/git         (+ git)
+├── giantswarm/klaus-toolchains/go          (+ git + Go)
+└── giantswarm/klaus-toolchains/python      (+ git + Python)
 
 giantswarm/klaus-debian
-├── giantswarm/klaus-git-debian
-├── giantswarm/klaus-go-debian
-└── giantswarm/klaus-python-debian
+├── giantswarm/klaus-toolchains/git-debian
+├── giantswarm/klaus-toolchains/go-debian
+└── giantswarm/klaus-toolchains/python-debian
 ```
 
 ## Tagging
@@ -51,7 +51,7 @@ Tags follow the [Giant Swarm semver tagging schema](https://github.com/giantswar
 Reference images in klausctl config, Helm values, or operator CRDs:
 
 ```yaml
-image: gsoci.azurecr.io/giantswarm/klaus-go:1.0.0
+image: gsoci.azurecr.io/giantswarm/klaus-toolchains/go:1.0.0
 ```
 
 ## Repository structure
@@ -70,4 +70,4 @@ klaus-python/
 
 ## CI
 
-CircleCI builds one `push-to-registries` job per image using the [architect-orb](https://github.com/giantswarm/architect-orb). All images are pushed to `gsoci.azurecr.io/giantswarm/` on every push (dev tags) and release (semver tags).
+CircleCI builds one `push-to-registries` job per image using the [architect-orb](https://github.com/giantswarm/architect-orb). All images are pushed to `gsoci.azurecr.io/giantswarm/klaus-toolchains/` on every push (dev tags) and release (semver tags).
