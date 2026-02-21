@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Move toolchain images to `giantswarm/klaus-toolchains/<name>` sub-namespace for consistent naming with plugins (`klaus-plugins/`) and personalities (`klaus-personalities/`). This also eliminates a ~30s cold-start latency in `klausctl toolchain list` caused by enumerating the entire `giantswarm/` catalog.
+
 ### Added
 
 - Initial toolchain images: klaus-git, klaus-go, klaus-python.
